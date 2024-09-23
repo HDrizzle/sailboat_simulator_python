@@ -1,0 +1,711 @@
+<!--
+   documentation.html
+   
+   Copyright 2022 Hadrian Ward <hadrian.f.ward@gmail.com>
+   
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+   
+   
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Sailboat Simulator Documentation</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.37.1" />
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+	<h2>Usage</h2>
+	<div>
+		<h3>Running a simulation</h3>
+		<div class="paragraph">To start a simulation, click "simulation options" and select a simulation name in the listbox then click "start".</div>
+		<div>
+			<div class="paragraph">When the simulation is running, the controls are pretty obvious. some not-so-noticeable features are:</div>
+			<ul>
+				<li>
+					The arrow keys can be used to adjust a slider by one increment.
+				</li>
+				<li>
+					Clicking on the image (outside the minimap) will play/pause the simulation.
+				</li>
+				<li>
+					Clicking on the image (inside the minimap) will set the autopilot target position if it's enabled.
+				</li>
+			</ul>
+		</div>
+		<h3>Running a simulation as a server</h3>
+		<div class="paragraph">
+			To host a simulation server, follow the instructions above, but check the "public" checkbutton before starting it. The server will have a TCP socket on the local IPv4 address of your device on port 30300 unless you change it.
+		</div>
+		<div class="paragraph">
+			If you want someone to be able to access the server from outside your network, you will need to set up port forwarding on your router using TCP on whatever port you're using (the default is 30300). They will need your IP address to join the server (use <a href="https://ip4.me/">ip4.me</a>).
+		</div>
+		<h3>Administrator Controls</h3>
+		<div class="paragraph">
+			When running a simulation or signing in as __admin__ (the administrator username) there will be a button labeled "Admin controls", clicking it will create a new frame with a listbox of all users and options for a selected user.
+			Be careful when blocking yourself or a user from your network.
+			<div class="update-note">Added in v2021-2-3</div>
+		</div>
+		<h3>Joining a simulation server</h3>
+		<div>
+			<div class="paragraph">
+				To join a sim server click "Join Simulation" on the home screen and fill out the following fields
+			</div>
+			<table>
+				<tr>
+					<th>Field</th><th>Description</th>
+				</tr>
+				<tr>
+					<td>server IPv4 address</td><td>The server's IPv4 address. If the device running the server is on the same network then use its local IP, otherwise the server's admin should tell you what their global IP is.</td>
+				</tr>
+				<tr>
+					<td>server port</td><td>The port that the server is using. Assume this is 30300 unless the admin says otherwise.</td>
+				</tr>
+				<tr>
+					<td>username</td><td>Username for a boat in the simulation.</td>
+				</tr>
+				<tr>
+					<td>password</td><td>Corresponding password for your username, the admin will have to tell you what both of these are.</td>
+				</tr>
+				<tr>
+					<td>sim server password</td><td>Password to join the simulation, this may be left blank if there isn't one.</td>
+				</tr>
+			</table>
+		</div>
+		<h3>Zooming in/out</h3>
+		<div class="paragraph">
+			To zoom in or out, scroll while the mouse is over the image. To reverse this, change <code>reverse-scrolling</code> in the GUI settings.
+		</div>
+		<h3>Controlling the rudder</h3>
+		<div class="paragraph">
+			<div>The boat's rudder can be controlled by these three things in order of greatest to least priority</div>
+			<ul>
+				<li>
+					The mouse: If you place the mouse over the image and inside the red rectangle along the bottom, its horizontal position will control the rudder.
+				</li>
+				<li>
+					The slider on the control panel.
+				</li>
+				<li>
+					The autopilot: See below for using the autopilot.
+				</li>
+			</ul>
+		</div>
+		<h3>Using the autopilot</h3>
+		<div class="paragraph">
+			To enable the autopilot click the checkbox labeled "Enable Autopilot" on the control panel.
+			When the autopilot is enabled there will be a red dot on the minimap where it's target position is.
+		</div>
+		<div class="paragraph">
+			The autopilot feature can only control the rudder which can be overridden by the user.
+			To set a course you can: click on the minimap (this only works when it is enabled), enter the course as X-Y coordinates, enter it as a direction and distance from the current position of the boat, or set it to track another user.
+		</div>
+	</div>
+	<h2>Troubleshooting</h2>
+	<div>
+		<table>
+			<tr>
+				<th>problem/error message</th>
+				<th>cause</th>
+				<th>solution</th>
+			</tr>
+			<tr>
+				<td>Program freezes when the boat gets close to land.</td>
+				<td>An image floodfill function.</td>
+				<td>Set <code>floodfill-land</code> to <code>false</code> in the settings.</td>
+			</tr>
+			<tr>
+				<td>The boat stops moving with the "sanity limits reached" message.</td>
+				<td>The boats momentum or angular momentum reached the corresponding sanity limit, this is a failsafe feature to prevent the simulation from getting out of control and crashing.</td>
+				<td>Set the sanity limit (velocity or angular velocity, whichever may have been reached) in the settings to a value that definitely won't be reached by the simulation.</td>
+			</tr>
+			<tr>
+				<td>"could not decode/deserialize settings.json"</td>
+				<td>There is a syntax error in settings.json, not allowing it to be decoded.</td>
+				<td>Fix it and try again (the message will say where it is).</td>
+			</tr>
+			<tr>
+				<td>"combined settings dictionary missing one or more keys"</td>
+				<td>The global settings (settings.json) and the simulation's local settings combined (see "Resources" -> "settings") are missing one or more keys.</td>
+				<td>Check it with the table in "Resources" -> "settings".</td>
+			</tr>
+			<tr>
+				<td>The FPS starts getting slow when a simulation has been running for a while.</td>
+				<td>The boat tracer is enabled and the list of previous boat positions has to be drawn on the minimap every frame, this takes longer as the list gets larger.</td>
+				<td>Set <code>tracer-resolution</code> in the settings to a larger number, or disable the tracer by setting <code>show-tracer</code> to <code>false</code> in the settings.</td>
+			</tr>
+		</table>
+	</div>
+	<h2>Resources</h2>
+	<div>
+		<h3>settings</h3>
+		<div class="paragraph"><code>settings.json</code> contains settings that are global and not specific to a simulation. Individual keys can be overridden in specific simulation files by including a dictionary called "settings" in the sim file with the keys/values that you want to change.</div>
+		<table>
+			<tr>
+				<th>key</th><th>type</th><th>unit</th><th>description</th>
+			</tr>
+			<tr>
+				<td><code>simulator</code></td><td><code>dictionary</code></td><td>None</td>
+				<td>
+					<div class="paragraph">Simulator settings, a "settings" dictionary in a simulation file will have this same format and will override these.</div>
+					<table>
+						<tr>
+							<th>key</th><th>type</th><th>unit</th><th>description</th>
+						</tr>
+						<tr>
+							<td><code>save-sims</code></td><td><code>boolean</code></td><td>None</td><td>Whether to save the simulation when it is quit or when there is an error.</td>
+						</tr>
+						<tr>
+							<td><code>lag-limit</code></td><td><code>integer/float</code></td><td>seconds</td><td>Upper limit to step the simulation.</td>
+						</tr>
+						<tr>
+							<td><code>max-rudder-movement</code></td><td><code>integer/float</code></td><td>degrees/second</td><td>limit on how fast the autopilot can move the rudder.</td>
+						</tr>
+						<tr>
+							<td><code>tracer-resolution</code></td><td><code>integer/float</code></td><td>meters</td><td>Resolution of the path tracer, boat has to this far away from the previous point to record a new point, set this to <code>null</code> to disable the tracer.</td>
+						</tr>
+						<tr>
+							<td><code>client-timeout</code></td><td><code>integer/float</code></td><td>seconds</td><td>Time for a client to not be responding for them to be considered disconnected.<div class="update-note">updated in v2022-1-29</div></td>
+						</tr>
+						<tr>
+							<td><code>sanity-limits</code></td><td><code>dictionary</code></td><td>None</td>
+							<td>
+								<div class="paragraph">Upper limits to prevent the simulation from getting out of control.</div>
+								<table>
+									<tr>
+										<th>key</th><th>type</th><th>unit</th><th>description</th>
+									</tr>
+									<tr>
+										<td><code>velocity</code></td><td><code>integer/float</code></td><td>meters/second</td><td>Boat's speed limit.</td>
+									</tr>
+									<tr>
+										<td><code>angular-velocity</code></td><td><code>integer/float</code></td><td>degrees/second</td><td>Boat's angular velocity limit.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td><code>GUI</code></td><td><code>dictionary</code></td><td>None</td>
+				<td>
+					<div class="paragraph">Graphical user interface settings.</div>
+					<table>
+						<tr>
+							<th>key</th><th>type</th><th>unit</th><th>description</th>
+						</tr>
+						<tr>
+							<td><code>floodfill-land</code></td><td><code>boolean</code></td><td>None</td><td>Whether to fill in land with a different color (can be disabled to improve performance).</td>
+						</tr>
+						<tr>
+							<td><code>show-true-wind</code></td><td><code>boolean</code></td><td>None</td><td>Whether to show the true wind vector.</td>
+						</tr>
+						<tr>
+							<td><code>show-timer</code></td><td><code>boolean</code></td><td>None</td><td>Whether to show the timer.</td>
+						</tr>
+						<tr>
+							<td><code>reverse-scrolling</code></td><td><code>boolean</code></td><td>None</td><td>Whether to reverse the image zoom scrolling.</td>
+						</tr>
+						<tr>
+							<td><code>show-tracer</code></td><td><code>boolean</code></td><td>None</td><td>Whether to record and display the boat's path.</td>
+						</tr>
+						<tr>
+							<td><code>show-vectors</code></td><td><code>boolean</code></td><td>None</td><td>Whether to show the vectors on the image.</td>
+						</tr>
+						<tr>
+							<td><code>show-end-flag</code></td><td><code>boolean</code></td><td>None</td><td>Whether to show the end position with the checkered flag icon.</td>
+						</tr>
+						<tr>
+							<td><code>show-performance</code></td><td><code>boolean</code></td><td>None</td><td>Whether to show the results from the performance tracker.</td>
+						</tr>
+						<tr>
+							<td><code>show-boat-labels</code></td><td><code>boolean</code></td><td>None</td><td>Whether to show text on boats on the main image.</td>
+						</tr>
+						<tr>
+							<td><code>control-panel-side</code></td><td><code>string</code></td><td>None</td><td>Side to display the control pain on the simulation screen, can only be "L" or "R".</td>
+						</tr>
+						<tr>
+							<td><code>colors</code></td><td><code>dictionary</code></td><td>None</td>
+							<td>
+								<div class="paragraph">RGB color values for rendering graphics</div>
+								<table>
+									<tr>
+										<th>key</th><th>type</th><th>description</th>
+									</tr>
+									<tr>
+										<td><code>true-wind</code></td><td><code>list</code></td><td>true wind vector color</td>
+									</tr>
+									<tr>
+										<td><code>app-wind</code></td><td><code>list</code></td><td>apparent wind vector color</td>
+									</tr>
+									<tr>
+										<td><code>drag-force</code></td><td><code>list</code></td><td>drag force vector vector color</td>
+									</tr>
+									<tr>
+										<td><code>velocity</code></td><td><code>list</code></td><td>boat velocity vector color</td>
+									</tr>
+									<tr>
+										<td><code>rudder-force</code></td><td><code>list</code></td><td>rudder force vector color</td>
+									</tr>
+									<tr>
+										<td><code>sail-force</code></td><td><code>list</code></td><td>force vector color for each sail</td>
+									</tr>
+									<tr>
+										<td><code>total-sail-force</code></td><td><code>list</code></td><td>combined force vector color for all sails</td>
+									</tr>
+									<tr>
+										<td><code>ocean</code></td><td><code>list</code></td><td>ocean color on minimap</td>
+									</tr>
+									<tr>
+										<td><code>land</code></td><td><code>list</code></td><td>default landmass color</td>
+									</tr>
+									<tr>
+										<td><code>text-fg</code></td><td><code>list</code></td><td>text foreground color</td>
+									</tr>
+									<tr>
+										<td><code>text-bg</code></td><td><code>list</code></td><td>text background color</td>
+									</tr>
+									<tr>
+										<td><code>tracer-path</code></td><td><code>list</code></td><td>minimap boat tracer color</td>
+									</tr>
+									<tr>
+										<td><code>total-acceleration-force</code></td><td><code>list</code></td><td>total acceleration force color</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td><code>pixel-units</code></td><td><code>dictionary</code></td><td>None</td><td>Pixels per given unit for rendering graphics, required keys are: <code>force</code>, <code>distance</code> and <code>speed</code>.</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<h3>contacts.json</h3>
+		<div class="paragraph"><code>contacts.json</code> is a list of dictionaries for all recognized users of the following format</div>
+		<table>
+			<tr>
+				<th>key</th><th>type</th><th>unit</th><th>description</th>
+			</tr>
+			<tr>
+				<td><code>username</code></td><td><code>string</code></td><td>None</td><td>Username</td>
+			</tr>
+			<tr>
+				<td><code>password</code></td><td><code>string</code></td><td>None</td><td>User's password</td>
+			</tr>
+			<tr>
+				<td><code>blocked</code></td><td><code>boolean</code></td><td>None</td><td>Whether this user is blocked</td>
+			</tr>
+		</table>
+		<h3>map files</h3>
+		<div class="paragraph">Every file in the <code>maps</code> folder is a JSON file containing data for coastlines and some other stuff. These files are never modified by the program.</div>
+		<table>
+			<tr>
+				<th>key</th><th>type</th><th>unit</th><th>description</th>
+			</tr>
+			<tr>
+				<td><code>size</code></td><td><code>list</code></td><td>meters</td><td>List of 2 numbers representing the width and height of the map.</td>
+			</tr>
+			<tr>
+				<td><code>start</code></td><td><code>list</code></td><td>meters</td><td>Start position of the boat when creating a new simulation file.</td>
+			</tr>
+			<tr>
+				<td><code>end</code></td><td><code>list</code></td><td>meters</td><td>Goal position (where checkered flag is displayed).</td>
+			</tr>
+			<tr>
+				<td><code>landmasses</code></td><td><code>list</code></td><td>None</td>
+				<td>
+					<div>List containing dictionary(s) of the following format</div>
+					<table>
+						<tr>
+							<th>key</th><th>type</th><th>unit</th><th>description</th>
+						</tr>
+						<tr>
+							<td><code>name</code></td><td><code>string</code></td><td>None</td><td>name of this landmass (optional).</td>
+						</tr>
+						<tr>
+							<td><code>coords</code></td><td><code>list</code></td><td>meters</td><td>List of 2D coordinate points for this landmass's perimeter.</td>
+						</tr>
+						<tr>
+							<td><code>rep-point</code></td><td><code>list</code></td><td>meters</td><td>Representative point (for graphics).</td>
+						</tr>
+						<tr>
+							<td><code>color</code></td><td><code>list</code></td><td>RGB-color-value</td><td>Optional RGB-format list of color values to fill the landmass (for graphics).</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<h3>simulation files</h3>
+		<div class="paragraph">Every file in the <code>simulations</code> folder is a JSON file containing data for a specific simulation. They may be modified when a simulation in saved, so try not to edit them when they are being used.</div>
+		<table>
+			<tr>
+				<th>key</th><th>type</th><th>unit</th><th>description</th>
+			</tr>
+			<tr>
+				<td><code>map</code></td><td><code>string</code></td><td>None</td><td>Name of map file (without ".json") being used for the simulation.</td>
+			</tr>
+			<tr>
+				<td><code>settings</code></td><td><code>dictionary</code></td><td>None</td><td>Optional local simulation settings dictionary (see "settings" -> key "simulator").</td>
+			</tr>
+			<tr>
+				<td><code>paused</code></td><td><code>boolean</code></td><td>None</td><td>If the simulation is paused.</td>
+			</tr>
+			<tr>
+				<td><code>password</code></td><td><code>string</code></td><td>None</td><td>Optional simulation password.</td>
+			</tr>
+			<tr>
+				<td><code>clients</code></td><td><code>dictionary</code></td><td>None</td>
+				<td>
+					<div class="paragraph">Dictionary of each user's name and their dictionary for each client in the simulation.</div>
+					<table>
+						<tr>
+							<th>key</th><th>type</th><th>unit</th><th>description</th>
+						</tr>
+						<tr>
+							<td><code>username</code></td><td><code>string</code></td><td>None</td><td>Client username</td>
+						</tr>
+						<tr>
+							<td><code>finished</code></td><td><code>boolean</code></td><td>None</td><td>If the boat has gotten to the end position yet.</td>
+						</tr>
+						<tr>
+							<td><code>paused</code></td><td><code>boolean</code></td><td>None</td><td>Whether this individual client/user is paused.</td>
+						</tr>
+						<tr>
+							<td><code>blocked</code></td><td><code>boolean</code></td><td>None</td><td>Whether this client/user is blocked.</td>
+						</tr>
+						<tr>
+							<td><code>enabled</code></td><td><code>boolean</code></td><td>None</td><td>Whether this user's boat is enabled.</td>
+						</tr>
+						<tr>
+							<td><code>record</code></td><td><code>float</code></td><td>seconds</td><td>This user's completion time record.</td>
+						</tr>
+						<tr>
+							<td><code>tracer-lst</code></td><td><code>list</code></td><td>meters</td><td>Record of where the boat has been.</td>
+						</tr>
+						<tr>
+							<td><code>timer</code></td><td><code>dictionary</code></td><td>None</td>
+							<td>
+								<div class="paragraph">Timer settings (optional).</div>
+								<table>
+									<tr>
+										<th>key</th><th>type</th><th>unit</th><th>description</th>
+									</tr>
+									<tr>
+										<td><code>t</code></td><td><code>integer/float</code></td><td>seconds</td><td>Current timer value.</td>
+									</tr>
+									<tr>
+										<td><code>running</code></td><td><code>boolean</code></td><td>None</td><td>Whether the timer is running.</td>
+									</tr>
+									<tr>
+										<td><code>ratio</code></td><td><code>integer/float</code></td><td>None</td><td>Simulation time ratio.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td><code>autopilot</code></td><td><code>dictionary</code></td><td>None</td>
+							<td>
+								<div class="paragraph">Autopilot settings (optional).</div>
+								<table>
+									<tr>
+										<th>key</th><th>type</th><th>unit</th><th>description</th>
+									</tr>
+									<tr>
+										<td><code>target-pos</code></td><td><code>list</code><td>None</td>
+										<td>
+											<div>Autopilot target position list, the format depends on the first item.</div>
+											<table>
+												<tr>
+													<th>1st item (string)</th><th>meaning of 2nd item</th>
+												</tr>
+												<tr>
+													<td><code>global-pos</code></td><td>2D coordinate list for global position.</td>
+												</tr>
+												<tr>
+													<td><code>local-pos</code></td><td>2D coordinate list for local position (stays the same/is not updated when the boat moves).</td>
+												</tr>
+												<tr>
+													<td><code>user</code></td><td>username for boat to track, is updated when the boat being tracked moves.</td>
+												</tr>
+											</table>
+											<div class="update-note">updated in v2021-12-25</div>
+										</td>
+									</tr>
+									<tr>
+										<td><code>enabled</code></td><td><code>boolean</code><td>None</td><td>Whether the autopilot is enabled.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td><code>boat-start</code></td><td><code>dictionary</code></td><td>None</td><td>Contains the same keys/value types and means the same thing as the "boat" dictionary, this is for configuring the boat when the simulation is reset.</td>
+						</tr>
+						<tr>
+							<td><code>boat</code></td><td><code>dictionary</code></td><td>None</td>
+							<td>
+								<div class="paragraph">Settings for the boat.</div>
+								<table>
+									<tr>
+										<th>key</th><th>type</th><th>unit</th><th>description</th>
+									</tr>
+									<tr>
+										<td><code>type</code></td><td><code>string</code></td><td>None</td><td>Boat used for the simulation - name of file in <code>boat_specs</code> folder without ".json".</td>
+									</tr>
+									<tr>
+										<td><code>pos</code></td><td><code>list</code></td><td>meters</td><td>List of X and Y coordinates representing the position of the center of the boat on the map.</td>
+									</tr>
+									<tr>
+										<td><code>velocity</code></td><td><code>list</code></td><td>meters/second</td><td>List representing the X and Y velocity of the boat.</td>
+									</tr>
+									<tr>
+										<td><code>angle</code></td><td><code>integer/float</code></td><td>degrees</td><td>Angle of the boat (counter-clockwise from east).</td>
+									</tr>
+									<tr>
+										<td><code>angular-velocity</code></td><td><code>integer/float</code></td><td>degrees/second</td><td>Angular velocity of the boat.</td>
+									</tr>
+									<tr>
+										<td><code>rudder-angle</code></td><td><code>integer/float</code></td><td>degrees</td><td>Angle of the boat's rudder relative to the boat's starboard side (270 is strait).</td>
+									</tr>
+									<tr>
+										<td><code>hull-durability</code></td><td><code>integer/float</code></td><td>None</td><td>Current durability of the boat's hull.</td>
+									</tr>
+									<tr>
+										<td><code>rudder-enable</code></td><td><code>boolean</code></td><td>None</td><td>Whether the rudder is enabled.</td>
+									</tr>
+									<tr>
+										<td><code>sails</code></td><td><code>dictionary</code></td><td>None</td>
+										<td>
+											<div>Dictionary with the name of every sail and its config data of the following format.</div>
+											<table>
+												<tr>
+													<th>key</th><th>type</th><th>unit</th><th>description</th>
+												</tr>
+												<tr>
+													<td><code>angle</code></td><td><code>integer/float</code></td><td>degrees</td><td>Sail angle relative to the boat.</td>
+												</tr>
+												<tr>
+													<td><code>sheeting-angle</code></td><td><code>integer/float</code></td><td>degrees</td><td>Sail's sheeting angle.</td>
+												</tr>
+												<tr>
+													<td><code>force</code></td><td><code>list</code></td><td>kilograms</td><td>Sail's force vector (relative to boat).</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td><code>forces</code></td><td><code>dictionary</code></td><td>None</td>
+										<td>
+											<div>Dictionary with each force name a list of it's starting pos and vector.</div>
+											<table>
+												<tr>
+													<th>key</th><th>type</th><th>unit</th><th>description</th>
+												</tr>
+												<tr>
+													<td><code>hull-water-drag</code></td><td><code>list</code></td><td>None</td><td>Hull drag force.</td>
+												</tr>
+												<tr>
+													<td><code>hull-air-drag</code></td><td><code>list</code></td><td>None</td><td>Hull drag force from apparent wind.</td>
+												</tr>
+												<tr>
+													<td><code>sails-total</code></td><td><code>list</code></td><td>None</td><td>Total force from sails.</td>
+												</tr>
+												<tr>
+													<td><code>rudder</code></td><td><code>list</code></td><td>None</td><td>Rudder force.</td>
+												</tr>
+												<tr>
+													<td><code>total</code></td><td><code>list</code></td><td>None</td><td>Total force of acceleration.</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td><code>wind-settings</code></td><td><code>dictionary</code></td><td>None</td>
+				<td>
+					<div class="paragraph">Settings for wind simulation.</div>
+					<table>
+						<tr>
+							<th>key</th><th>type</th><th>unit</th><th>description</th>
+						</tr>
+						<tr>
+							<td><code>speed-average</code></td><td><code>integer/float</code><td>meters/second</td><td>Average wind speed</td>
+						</tr>
+						<tr>
+							<td><code>max-gust</code></td><td><code>integer/float</code></td><td>meters/second</td><td>Max wind speed</td>
+						</tr>
+						<tr>
+							<td><code>speed-variability</code></td><td><code>integer/float</code></td><td>feet/second/second</td><td>Max amount that the wind speed can change per second.</td>
+						</tr>
+						<tr>
+							<td><code>direction-variability</code></td><td><code>integer/float</code></td><td>degrees/second/second</td><td>Max amount that the wind direction can change per second.</td>
+						</tr>
+						<tr>
+							<td><code>direction</code></td><td><code>integer/float</code></td><td>degrees</td><td>Starting direction, degrees counterclockwise from east, NOTE: this is the direction that the wind is moving in, not coming from.</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td><code>timer</code></td><td><code>dictionary</code></td><td>None</td>
+				<td>
+					<div class="paragraph">Simulation timer settings (optional).</div>
+					<table>
+						<tr>
+							<th>key</th><th>type</th><th>unit</th><th>description</th>
+						</tr>
+						<tr>
+							<td><code>t</code></td><td><code>integer/float</code></td><td>seconds</td><td>Current timer value.</td>
+						</tr>
+						<tr>
+							<td><code>running</code></td><td><code>boolean</code></td><td>None</td><td>Whether the timer is running.</td>
+						</tr>
+						<tr>
+							<td><code>ratio</code></td><td><code>integer/float</code></td><td>None</td><td>Simulation time ratio.</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<h3>boat specs</h3>
+		<div class="paragraph">Every file in the <code>boat_specs</code> folder represents a type of boat. These are never modified by the program.</div>
+		<table>
+			<tr>
+				<th>key</th><th>type</th><th>unit</th><th>description</th>
+			</tr>
+			<tr>
+				<td><code>perimeter</code></td><td><code>list</code></td><td>None</td><td>List of coordinate points representing the perimeter of the boat.</td>
+			</tr>
+			<tr>
+				<td><code>center-of-lateral-resistance</code></td><td><code>integer/float</code></td><td>meters</td><td>Distance from the center of the boat to the hull's center of lateral resistance without the rudder (+ is forward, - is aft).</td>
+			</tr>
+			<tr>
+				<td><code>forward-drag</code></td><td><code>integer/float</code></td><td>None</td><td>Forward drag coefficient of the hull.</td>
+			</tr>
+			<tr>
+				<td><code>sideways-drag</code></td><td><code>integer/float</code></td><td>None</td><td>Sideways drag coefficient of the hull (without rudder).</td>
+			</tr>
+			<tr>
+				<td><code>scale</code></td><td><code>integer/float</code></td><td>None</td><td>Scale of the boat for calculating drag.</td>
+			</tr>
+			<tr>
+				<td><code>boat-air-drag</code></td><td><code>integer/float</code></td><td>None</td><td>Drag coefficient of the above-water parts of the boat (without sails).</td>
+			</tr>
+			<tr>
+				<td><code>max-draft</code></td><td><code>integer/float</code></td><td>meters</td><td>Max draft of the hull.</td>
+			</tr>
+			<tr>
+				<td><code>rudder-pivot</code></td><td><code>integer/float</code></td><td>meters</td><td>Distance from center of boat to where the rudder pivot is (negative for most boats).</td>
+			</tr>
+			<tr>
+				<td><code>rudder-area</code></td><td><code>integer/float</code></td><td>meters^2</td><td>Rudder area.</td>
+			</tr>
+			<tr>
+				<td><code>rudder-center-of-effort</code></td><td><code>integer/float</code></td><td>meters</td><td>Distance from the rudder pivot to the rudder center of effort.</td>
+			</tr>
+			<tr>
+				<td><code>rudder-len</code></td><td><code>integer/float</code></td><td>meters</td><td>Length of the rudder (from above), only used for display purposes.</td>
+			</tr>
+			<tr>
+				<td><code>mass</code></td><td><code>integer/float</code></td><td>kilograms</td><td>Mass of the boat.</td>
+			</tr>
+			<tr>
+				<td><code>moment</code></td><td><code>integer/float</code></td><td>degrees/second/second/meter-kilogram</td><td>moment (angular mass) of the boat.</td>
+			</tr>
+			<tr>
+				<td><code>angular-drag</code></td><td><code>integer/float</code></td><td>None</td><td>Angular drag coefficient of the hull (without rudder).</td>
+			</tr>
+			<tr>
+				<td><code>max-hull-durability</code></td><td><code>integer/float</code></td><td>None</td><td>Hull durability starting value for starting a simulation, set to -1 for infinity.</td>
+			</tr>
+			<tr>
+				<td><code>upwind-max-wind-angle</code></td><td><code>integer/float</code></td><td>degrees</td><td>Angle between the boat and the wind where the boat is fastest upwind.</td>
+			</tr>
+			<tr>
+				<td><code>upwind-max-total-leeway</code></td><td><code>integer/float</code></td><td>degrees</td><td>Angle between the boat's momentum and the wind where the boat is fastest upwind.</td>
+			</tr>
+			<tr>
+				<td><code>sails-static</code></td><td><code>dictionary</code></td><td>None</td>
+				<td>
+					<div class="paragraph">dictionary for each sail name</div>
+					<table>
+						<tr>
+							<th>key</th><th>type</th><th>unit</th><th>description</th>
+						</tr>
+						<tr>
+							<td><code>area</code></td><td><code>integer/float</code></td><td>meters^2</td><td>Sail area</td>
+						</tr>
+						<tr>
+							<td><code>center-of-effort</code></td><td><code>integer/float</code></td><td>meters</td><td>Distance from the tack to the center of effort (from above).</td>
+						</tr>
+						<tr>
+							<td><code>tack</code></td><td><code>integer/float</code></td><td>meters</td><td>Distance between the tack and the center of the boat (+ is forward, - is aft).</td>
+						</tr>
+						<tr>
+							<td><code>foot-len</code></td><td><code>integer/float</code></td><td>meters</td><td>Length of the foot of the sail (only used for display purposes).</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<h2>3rd-Party dependencies</h2>
+	<div>
+		<table>
+			<tr>
+				<th>name</th><th>installation</th>
+			</tr>
+			<tr>
+				<td>tkinter</td><td><code>$ pip3 install tk</code></td>
+			</tr>
+			<tr>
+				<td>PIL</td><td><code>$ pip3 install Pillow</code></td>
+			</tr>
+			<tr>
+				<td>shapely</td><td><code>$ pip3 install shapely</code></td>
+			</tr>
+			<tr>
+				<td>pymunk</td><td><code>$ pip3 install pymunk</code></td>
+			</tr>
+			<tr>
+				<td>send2trash</td><td><code>$ pip3 install send2trash</code></td>
+			</tr>
+		</table>
+	</div>
+	<h2>Known bugs</h2>
+	<div>
+		<ul>
+			<li>
+				When starting or joining a simulation the rudder slider may be considered held down even though the mouse isn't on it. Since the slider overrides the Autopilot, it may not work even if enabled. It can be fixed by clicking it.
+			</li>
+			<li>
+				In the Admin control window, other boats are not shown beside the current user's boat.
+			</li>
+		</ul>
+		<div class="update-note">added in v2022-2-27</div>
+	</div>
+	<a href="changelog.html"><h2>Changelog</h2></a>
+</body>
+</html>

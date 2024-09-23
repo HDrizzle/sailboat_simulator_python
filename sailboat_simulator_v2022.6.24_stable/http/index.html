@@ -1,0 +1,43 @@
+<!--
+   index.html
+   
+   Copyright 2022 Hadrian Ward <hadrian.f.ward@gmail.com>
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Sailboat Simulator</title>
+	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.37.1" />
+	<script type="text/javascript" src="page_data_updater.js"></script>
+</head>
+<body>
+	<h1>Sailboat Simulator</h1>
+	<noscript>This page uses Javascript to provide additional information. Javascript is currently disabled on your browser.</noscript>
+	<div>
+		This is a server for Sailboat Simulator v<span id="version">XXXX.XX.XX</span>, you need the client program to play on the simulation.
+	</div>
+	<div>
+		<h2>Simulator Status</h2>
+		<table id="global-status">
+			<tr>
+				<td>Globally paused</td><td id="global-paused">NA</td>
+			</tr>
+			<tr>
+				<td>Record</td><td><code id="global-record">NA</code></td>
+			</tr>
+			<tr>
+				<td>Time</td><td><code id="global-time">NA</code></td>
+			</tr>
+			<tr>
+				<td>Time ratio</td><td><code id="global-time-ratio">NA</code></td>
+			</tr>
+		</table>
+		<h2>Players</h2>
+		<table id="players"></table>
+	</div>
+</body>
+</html>

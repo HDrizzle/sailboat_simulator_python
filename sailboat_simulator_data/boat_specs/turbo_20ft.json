@@ -1,0 +1,40 @@
+{
+  "perimeter": [[5, -10], [0, 10], [-5, -10]],
+  "center-of-lateral-resistance": 0,
+  "forward-drag": 0.007,
+  "sideways-drag": 4,
+  "scale": 3,
+  "boat-air-drag": 0.1,
+  "max-draft": 5,
+  "rudder-pivot": -10,
+  "rudder-area": 8,
+  "rudder-center-of-effort": 1.5,
+  "rudder-len": 3,
+  "mass": 500,
+  "angular-mass": 500,
+  "angular-drag": 0.01,
+  "max-hull-durability": 100,
+  "upwind-max-wind-angle": 60,
+  "upwind-max-total-leeway": 67,
+  "sails":{
+    "main":{
+      "area": 100,
+      "center-of-effort": 8.5,
+      "tack": 4,
+      "foot-len": 14
+    },
+    "jib":{
+      "area": 40,
+      "center-of-effort": 2.5,
+      "tack": 10,
+      "foot-len": 4
+    },
+    "turbo booster":{
+	  "area": 100,
+      "center-of-effort": 1,
+      "tack": 1,
+      "foot-len": 2
+	}
+  }
+}
+

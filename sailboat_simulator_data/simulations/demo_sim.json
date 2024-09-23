@@ -1,0 +1,219 @@
+{
+	"map": "basic_with_island",
+	"paused": false,
+	"clients": {
+		"__admin__": {
+			"username": "__admin__",
+			"finished": false,
+			"paused": false,
+			"enabled": true,
+			"tracer-lst": [],
+			"timer": {
+				"t": 0,
+				"running": true
+			},
+			"autopilot": {
+				"enabled": false
+			},
+			"boat-start": {
+				"type": "test_6m",
+				"velocity": [0, 0],
+				"angle": 45,
+				"angular-velocity": 0,
+				"rudder-angle": 270,
+				"rudder-enable": true,
+				"forces": {
+					"hull-water-drag": [
+						[0, 0],
+						[0, 0]
+					],
+					"hull-air-drag": [
+						[0, 0],
+						[0, 0]
+					],
+					"sails-total": [
+						[0, 0],
+						[0, 0]
+					],
+					"rudder": [
+						[0, 0],
+						[0, 0]
+					],
+					"total": [
+						[0, 0],
+						[0, 0]
+					]
+				},
+				"sails": {
+					"main": {
+						"angle": 270,
+						"sheeting-angle": 90
+					},
+					"jib": {
+						"angle": 270,
+						"sheeting-angle": 90
+					}
+				},
+				"hull-durability": -1,
+				"pos": [200, 600]
+			},
+			"boat": {
+				"type": "test_6m",
+				"velocity": [0, 0],
+				"angle": 45,
+				"angular-velocity": 0,
+				"rudder-angle": 270,
+				"rudder-enable": true,
+				"forces": {
+					"hull-water-drag": [
+						[0, 0],
+						[0, 0]
+					],
+					"hull-air-drag": [
+						[0, 0],
+						[0, 0]
+					],
+					"sails-total": [
+						[0, 0],
+						[0, 0]
+					],
+					"rudder": [
+						[0, 0],
+						[0, 0]
+					],
+					"total": [
+						[0, 0],
+						[0, 0]
+					]
+				},
+				"sails": {
+					"main": {
+						"angle": 270,
+						"sheeting-angle": 90
+					},
+					"jib": {
+						"angle": 270,
+						"sheeting-angle": 90
+					}
+				},
+				"hull-durability": -1,
+				"pos": [200, 600]
+			}
+		},
+		"user-0": {
+			"username": "user-0",
+			"finished": false,
+			"paused": false,
+			"enabled": true,
+			"tracer-lst": [],
+			"timer": {
+				"t": 0,
+				"running": true
+			},
+			"autopilot": {
+				"enabled": false
+			},
+			"boat-start": {
+				"type": "test_6m",
+				"velocity": [0, 0],
+				"angle": 45,
+				"angular-velocity": 0,
+				"rudder-angle": 270,
+				"rudder-enable": true,
+				"forces": {
+					"hull-water-drag": [
+						[0, 0],
+						[0, 0]
+					],
+					"hull-air-drag": [
+						[0, 0],
+						[0, 0]
+					],
+					"sails-total": [
+						[0, 0],
+						[0, 0]
+					],
+					"rudder": [
+						[0, 0],
+						[0, 0]
+					],
+					"total": [
+						[0, 0],
+						[0, 0]
+					]
+				},
+				"sails": {
+					"main": {
+						"angle": 270,
+						"sheeting-angle": 90
+					},
+					"jib": {
+						"angle": 270,
+						"sheeting-angle": 90
+					}
+				},
+				"hull-durability": -1,
+				"pos": [200, 400]
+			},
+			"boat": {
+				"type": "test_6m",
+				"velocity": [0, 0],
+				"angle": 45,
+				"angular-velocity": 0,
+				"rudder-angle": 270,
+				"rudder-enable": true,
+				"forces": {
+					"hull-water-drag": [
+						[0, 0],
+						[0, 0]
+					],
+					"hull-air-drag": [
+						[0, 0],
+						[0, 0]
+					],
+					"sails-total": [
+						[0, 0],
+						[0, 0]
+					],
+					"rudder": [
+						[0, 0],
+						[0, 0]
+					],
+					"total": [
+						[0, 0],
+						[0, 0]
+					]
+				},
+				"sails": {
+					"main": {
+						"angle": 270,
+						"sheeting-angle": 90
+					},
+					"jib": {
+						"angle": 270,
+						"sheeting-angle": 90
+					}
+				},
+				"hull-durability": -1,
+				"pos": [200, 400]
+			}
+		}
+	},
+	"wind-settings": {
+		"speed": 6,
+		"max-gust": 6,
+		"speed-variability": 0.0,
+		"direction-variability": 30,
+		"direction": 270.0
+	},
+	"record": 0,
+	"timer": {
+		"t": 0,
+		"running": true,
+		"ratio": 1
+	},
+	"password": null,
+	"settings": {
+		"save-sims": true
+	}
+}
