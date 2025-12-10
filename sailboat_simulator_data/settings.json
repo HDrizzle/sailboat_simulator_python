@@ -1,0 +1,45 @@
+{
+  "simulator": {
+    "save-sims": false,
+    "lag-limit": 0.5,
+    "max-rudder-movement": 60,
+    "tracer-resolution": null,
+    "client-timeout": 5,
+    "sanity-limits": {
+      "velocity": 50,
+      "angular-velocity": 180
+    }
+  },
+  "GUI": {
+    "floodfill-land": false,
+    "show-true-wind": true,
+    "show-timer": true,
+    "reverse-scrolling": true,
+    "show-tracer": true,
+    "show-vectors": true,
+    "show-end-flag": true,
+    "show-performance": false,
+    "show-boat-labels": true,
+    "control-panel-side": "R",
+    "colors": {
+      "true-wind": [209, 142, 47],
+      "app-wind": [255, 149, 0],
+      "drag-force": [255, 0, 0],
+      "velocity": [0, 0, 255],
+      "rudder-force": [138, 0, 255],
+      "sail-force": [0, 255, 0],
+      "total-sail-force": [0, 255, 0],
+      "ocean": [60, 96, 148],
+      "land": [105, 125, 49],
+      "text-fg": [0, 0, 0],
+      "text-bg": [255, 255, 255],
+      "tracer-path": [255, 0, 0],
+      "total-acceleration-force": [255, 149, 0]
+    },
+    "pixel-units": {
+      "force": 0.125,
+      "distance": 18,
+      "momentum": 18
+    }
+  }
+}
