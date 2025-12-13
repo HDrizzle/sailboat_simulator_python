@@ -180,7 +180,7 @@ class Alert:
 		size = get_font_size(s.font, '\n'.join([l[0] for l in s.alerts]))
 		y = (img.size[1] / 2) - (size[1] / 2)
 		for i, alert in enumerate(s.alerts):
-			curr_pos = [int((img.size[0] / 2) - (s.font.getsize(alert[0])[0] / 2)), int(y + (i * 24))]
+			curr_pos = [int((img.size[0] / 2) - (get_font_size(s.font, alert[0])[0] / 2)), int(y + (i * 24))]
 			paste_text(img, curr_pos, alert[0], s.font, alert[1])
 
 	def add(s, text:str, color:tuple, t:float, avoid_dupe:bool=True) -> None:
